@@ -1,0 +1,526 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+
+\usetheme{CambridgeUS}
+
+\title{Hierarchische Clusteranalyse}
+\subtitle{Probleme der hierarchischen Clusteranalyse bei qualitativen Merkmalen}
+\author[A. Maarouf]{Abdurahman Maarouf\inst{1}}
+\institute[Uni Bonn]{
+ \inst{1}Universität Bonn}
+
+\AtBeginSection[]{
+ \frame{
+   \frametitle{Inhaltsverzeichnis}
+   \tableofcontents[currentsection]
+ }
+} 
+
+  
+ 
+\begin{document}
+\frame{\titlepage}
+
+\frame{
+ \frametitle{Inhaltsverzeichnis}
+ \tableofcontents
+}
+
+
+
+
+
+\section{Einführung}
+
+\subsection{Problemstellung}
+
+\begin{frame}
+ \centerline{Problemstellung}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ähnlichkeiten erkennen}
+
+ \begin{itemize}
+  \item Untersuchung von Ähnlichkeiten unter den \textcolor{blue}{Untersuchungsobjekten}
+  \begin {description}
+   \item [ Untersuchungsobjekte: ] Personen, Unternehmen, Produkte, etc.
+  \end{description}
+  \item Sinnvolle Gruppierung anhand der \textcolor{blue}{Merkmalsvariablen}
+  \begin {description}
+   \item [ Merkmalsvariablen: ] Geschlecht, Alter, Größe, Wohnort, etc.
+  \end{description}
+  \item Anwendung in vielen Bereichen (z.B. Medizin, Soziologie, Biologie, Wirtschaftswissenschaften, Alltag)
+ \end{itemize}
+\end{frame}
+
+\subsection{Ziel und Funktion einer Clusteranalyse}
+
+\begin{frame}
+ \centerline{Ziel und Funktion einer Clusteranalyse}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Clusteranalyse als exploratives Verfahren der multivariaten Datenanalyse}
+ \begin{itemize}
+
+  \item Gruppen sind im Ausgangspunkt \textcolor{blue}{unbekannt}
+
+  \item Gruppen werden erst durch das Clusterverfahren herbeigeführt
+
+  \item Hierbei werden \textcolor{blue}{alle} Merkmalsvariablen der Untersuchungsobjekte \textcolor{blue}{gleichzeitig} berücksichtigt
+
+  \item Strukturierung und Gruppierung der Untersuchungsobjekte im Hinblick auf folgende Kriterien:
+
+  \begin{block}{Kriterium 1: Homogenität innerhalb der Klassen}
+   Objekte in einer Klasse sollen möglichst ähnlich sein
+  \end{block}
+ 
+  \begin{block}{Kriterium 2: Heterogenität zwischen den Klassen}
+   Verschiedene Klassen sollen möglichst unterschiedliche Objekte enthalten
+  \end{block}
+
+ \end{itemize}
+\end{frame}
+
+\subsection{Aufbau einer Clusteranalyse}
+
+\begin{frame}
+ \centerline{Aufbau einer Clusteranalyse}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Partitionierendes vs. Hierarchisches Clustering}
+ \textcolor{blue}{Partitionierendes Clustering:} \\
+ \begin{itemize}
+  \item Annahme einer gegebenen Gruppierung und einer \textcolor{blue}{festen Anzahl an Gruppen}
+
+  \item Objekte werden den Gruppen so zugeordnet, dass eine gegebene \textcolor{blue}{Zielfunktion ihr Optimum} erreicht
+ \end{itemize}
+
+\textcolor{blue}{Hierarchisches Clustering:} \\
+ \begin{itemize}
+  \item \textcolor{red}{Agglomerative Algorithmen:} Zusammenfassung der Objekte in Gruppen %Fokus der Präsentation liegt auf das agglomerative Verfahren der hierarchischen Clusteranalyse
+
+  \item \textcolor{red}{Divisive Algorithmen:} Aufteilung der Gesamtheit in Gruppen
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Aufbau des hierarchischen Clustering}
+
+ \begin{block}{1. Bestimmung der Ähnlichkeit}
+  2 Objekte werden auf Ähnlichkeiten/Unterschiede untersucht. \
+  Ähnlichkeiten/Unterschiede werden mit einem \textcolor{blue}{Proximitätsmaß} gemessen.  
+ \end{block}
+
+ \begin{block}{2. Auswahl des Fusionierungsalgorithmus}
+  Objekte werden anhand ihrer Proximitätsmaße zu Gruppen zusammengefasst (\textcolor{blue}{agglomerativ}).   \\
+  Dabei werden Kriterien 1 und 2 so weit wie möglich erfüllt.
+ \end{block}
+
+ \begin{block}{3. Bestimmung der Clusteranzahl}
+  Welche Anzahl an Clustern ist die \glqq beste\grqq Lösung? \\
+  \textcolor{blue}{Handhabbarkeit} vs \textcolor{blue}{Homogenitätsanforderung} 
+ \end{block}
+
+\end{frame}
+
+
+
+
+
+
+\section{Ähnlichkeits- und Distanzfunktionen}
+
+\subsection{Definition}
+
+\begin{frame}
+ \centerline{Definition}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ähnlichkeits- und Distanzmaße}
+
+ \textcolor{blue}{Ähnlichkeitsmaße:} \\
+ \begin{itemize}
+  \item Je größer der Wert desto ähnlicher sind die zwei Objekte
+ \end{itemize}
+
+\textcolor{blue}{Distanzsmaße:} \\
+ \begin{itemize}
+  \item Je größer der Wert desto unähnlicher sind die zwei Objekte
+  \item Falls Objekte vollkommen identisch sind liegt der Wert bei 0
+ \end{itemize}
+
+ Wahl des Proximitätsmaßes hängt von dem \textcolor{blue}{Skalenniveau} des Merkmals ab. \\
+ Hier werden Variablen mit binären (Ähnlichkeitsmaß) und nominalen (Distanzmaß) Skalenniveaus betrachtet. \\
+
+
+
+\end{frame}
+
+
+
+\subsection{Ähnlichkeitsfunktionen bei binären Merkmalen}
+
+\begin{frame}
+ \centerline{Ähnlichkeitsfunktionen bei binären Merkmalen}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Von Rohdatenmatrizen zu Ähnlichkeitsmatrizen}
+ \textcolor{blue}{Rohdatenmatrix:}
+ \bordermatrix{
+  & Merkmal_1	& Merkmal_2   & Merkmal_3   \cr
+  Objekt_1 & x_{11} & x_{12} & x_{13} & \cr
+  Objekt_2 & x_{21} & x_{22} & x_{23} & \cr
+  Objekt_3 & x_{31} & x_{32} & x_{33} & \cr
+  Objekt_4 & x_{41} & x_{42} & x_{43} & \cr
+ } \\
+ \ \\
+ \centerline{\textcolor{red}{wird transformiert zu:}}
+ \ \\
+ \textcolor{blue}{Ähnlichkeitsmatrix:}
+ \bordermatrix{
+  & Objekt_1	& Objekt_2   & Objekt_3 & Objekt_4   \cr
+  Objekt_1 & S_{11} & S_{12} & S_{13} & S_{14} \cr
+  Objekt_2 & S_{21} & S_{22} & S_{23} & S_{24} \cr
+  Objekt_3 & S_{31} & S_{32} & S_{33} & S_{34} \cr
+  Objekt_4 & S_{41} & S_{42} & S_{43} & S_{44} \cr
+ } \\
+ \ \\
+ wobei S\textsubscript{ij} den Ähnlichkeitswert der Objekte i und j darstellt.
+ 
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Berechnung des Ähnlichkeitswerts zweier Objekte}
+ \textcolor{blue}{Allgemeines Ähnlichkeitsmaß:}
+ \begin{equation}
+  \ S_{ij}=\frac{a+\delta d}{a+\delta d+\gamma (b+c)}
+ \end{equation}
+ wobei: \\
+ \begin{itemize}
+  \item S\textsubscript{ij}: Ähnlichkeitswert der Objekte i und j
+  \item $\delta /\gamma$ : mögliche Gewichtungsfaktoren (abhängig vom \textcolor{blue}{Ähnlichkeitskoeffizienten})
+  \item a: Anzahl der Merkmale, die \textcolor{blue}{bei beiden} Objekten vorhanden sind
+  \item b: Anzahl der Merkmale, die \textcolor{blue}{nur} bei Objekt j vorhanden sind
+  \item c: Anzahl der Merkmale, die \textcolor{blue}{nur} bei Objekt i vorhanden sind
+  \item d: Anzahl der Merkmale, die \textcolor{blue}{bei beiden} Objekten \textcolor{blue}{nicht} vorhanden sind
+ \end{itemize}
+ gilt.
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ähnlichkeitskoeffizienten bei binären Merkmalen}
+ \begin{enumerate}	
+	\item \textcolor{blue}{Jaccard-Koeffizient:} \textcolor{red}{$\delta =0$ ; $\gamma =1$}
+ 				\begin{equation}
+  				 \ S_{ij}=\frac{a}{a+b+c}
+ 				\end{equation}
+	\item \textcolor{blue}{M-Koeffizient:} \textcolor{red}{$\delta =1$ ; $\gamma =1$}
+ 				\begin{equation}
+  				 \ S_{ij}=\frac{a+d}{M} ;     M=a+b+c+d
+ 				\end{equation}
+	\item \textcolor{blue}{Russel und Rao-Koeffizient:}
+ 				\begin{equation}
+  				 \ S_{ij}=\frac{a}{M} ;     M=a+b+c+d
+ 				\end{equation}
+ \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Auswahl des Ähnlichkeitskoeffizienten}
+
+ \begin{itemize}
+  \item \textcolor{blue}{Kein} Ähnlichkeitskoeffizient allgemeingültig vorziehbar
+  \item Alle drei Ähnlichkeitskoeffizienten \textcolor{blue}{gleich}, falls \textcolor{red}{$d=0$}
+  \item Falls \textcolor{red}{$d>0$} gilt, ist der \textcolor{blue}{M-Koeffizient am größten} und der \textcolor{blue}{RR-Koeffizient am kleinsten}
+  \item Bedeutung von \glqq Merkmal nicht vorhanden\grqq bestimmt die Auswahl des Ähnlichkeitskoeffizienten
+  \item \textcolor{blue}{M-Koeffizient:} Wenn \glqq Merkmal nicht vorhanden\grqq die \textcolor{blue}{gleiche Aussagekraft} hat wie \glqq Merkmal vorhanden\grqq
+  \item \textcolor{blue}{Jaccard-Koeffizient:} Wenn \glqq Merkmal nicht vorhanden\grqq \textcolor{blue}{nicht} die gleiche Aussagekraft hat (Bsp: Deutsch vs. Nicht-Deutsch)
+
+ \end{itemize}
+
+\end{frame}
+
+\subsection{Ähnlichkeits-/ Distanzfunktionen bei nominalen Merkmalen}
+
+\begin{frame}
+ \centerline{Ähnlichkeits-/ Distanzfunktionen bei nominalen Merkmalen}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Variante 1: Transformation in binäre Variable}
+ \begin{itemize}
+  \item Nominale Merkmale können in \textcolor{blue}{binäre Hilfsvariablen} zerlegt werden
+  \item (Deutsch, Französisch, Spanisch,...) $\Rightarrow$ (Deutsch, Nicht-Deutsch)
+  \item Restliche Vorgehensweise \textcolor{blue}{gleich} wie bei binären Variablen
+  \item \textcolor{red}{Achtung:} Je höher die Anzahl an Merkmalsausprägungen desto \textcolor{blue}{verzerrter} die binären Proximitätsmaße! \\
+  $\Rightarrow$ Genauere Ergebnisse mit \textcolor{blue}{Variante 2: Analyse von Häufigkeiten}
+
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Variante 2: Analyse von Häufigkeiten}
+ \textcolor{blue}{Rohdatenmatrix:}
+ \bordermatrix{
+  & Merkmal_1	& Merkmal_2   & Merkmal_3   \cr
+  Objekt_1 & x_{11} & x_{12} & x_{13} & \cr
+  Objekt_2 & x_{21} & x_{22} & x_{23} & \cr
+  Objekt_3 & x_{31} & x_{32} & x_{33} & \cr
+  Objekt_4 & x_{41} & x_{42} & x_{43} & \cr
+ } \\
+ \ \\
+ \centerline{\textcolor{red}{wird transformiert zu:}}
+ \ \\
+ \textcolor{blue}{Distanzmatrix:}
+ \bordermatrix{
+  & Objekt_1	& Objekt_2   & Objekt_3 & Objekt_4   \cr
+  Objekt_1 & D_{11} & D_{12} & D_{13} & D_{14} \cr
+  Objekt_2 & D_{21} & D_{22} & D_{23} & D_{24} \cr
+  Objekt_3 & D_{31} & D_{32} & D_{33} & D_{34} \cr
+  Objekt_4 & D_{41} & D_{42} & D_{43} & D_{44} \cr
+ } \\
+ \ \\
+ wobei D\textsubscript{ij} den Distanzwert der Objekte i und j darstellt. \\
+ Distanzwerte werden mithilfe des \textcolor{blue}{$\chi^2$-Maß} berechnet.
+ 
+\end{frame}
+
+
+
+
+
+
+
+\section{Clusteranalysealgorithmen}
+
+\subsection{Auswahl des Fusionierungsalgorithmus}
+
+\begin{frame}
+ \centerline{Auswahl des Fusionierungsalgorithmus}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Agglomerative hierarchische Algorithmen}
+ \begin{itemize}
+  \item Gewonnene Distanz- bzw. Ähnlichkeitsmatrix bilden den \textcolor{blue}{Ausgangspunkt} der Clusteralgorithmen
+  \item \textcolor{blue}{Breites Spektrum} an Clusteralgorithmen
+  \item Schwerpunkt auf \textcolor{blue}{agglomerative hierarchische Algorithmen}, da sie in der Praxis häufig zur Anwendung kommen
+  \item Cluster werden anhand der Ähnlichkeits- bzw. Distanzwerte erstellt.
+  \item Im Ausgangspunkt stellt \textcolor{blue}{jedes Objekt ein Cluster} dar 
+
+ \end{itemize}
+\end{frame}
+
+\subsection{Hierarchische Verfahren}
+
+\begin{frame}
+ \centerline{Hierarchische Verfahren}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ablauf der agglomerativen Verfahren}
+
+ \begin{block}{Schritt 1}
+  Ausgangssituation: Jedes Objekt stellt ein Cluster da
+ \end{block}
+
+ \begin{block}{Schritt 2}
+  Für alle Objekte werden paarweise Ähnlichkeits- bzw. Distanzwerte bestimmt
+ \end{block}
+
+ \begin{block}{Schritt 3}
+  Die beiden Cluster mit dem größten Ähnlichkeitswert bzw. kleinsten Distanzwert werden gesucht
+ \end{block}
+
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ablauf der agglomerativen Verfahren}
+ 
+ \begin{block}{Schritt 4}
+  Die beiden Cluster  mit dem größten Ähnlichkeitswert bzw. kleinsten Distanzwert werden zu einem neuen Cluster zusammengefasst
+ \end{block}
+
+ \begin{block}{Schritt 5}
+  Neue Ähnlichkeits- bzw. Distanzwerte werden mit den übrigen Gruppen berechnet \\
+  $\Rightarrow$ \textcolor{blue}{reduzierte Ähnlichkeits- bzw. Distanzmatrix}
+ \end{block}
+
+ \begin{block}{Schritt 6}
+  \textcolor{blue}{Schritt 3} bis \textcolor{blue}{Schritt 5} werden solange wiederholt, bis es nur ein Cluster gibt \\
+  $\Rightarrow$ \textcolor{blue}{Ein-Cluster-Lösung}
+ \end{block}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Zu Schritt 5: Berechnung der neuen Distanzwerte}
+
+ \begin{block}{Schritt 5}
+  Neue Ähnlichkeits- bzw. Distanzwerte werden mit den übrigen Gruppen berechnet \\
+  $\Rightarrow$ \textcolor{blue}{reduzierte Ähnlichkeits- bzw. Distanzmatrix}
+ \end{block}
+
+ \begin{itemize} 
+  \item Zusammenfassung von \textcolor{blue}{Cluster X} und \textcolor{blue}{Cluster Y} zu \textcolor{blue}{Cluster X+Y}
+  \item Neuer Distanzwert von \textcolor{blue}{Cluster X+Y} und \textcolor{blue}{Cluster Z}:
+ \end{itemize}
+
+ \begin{equation}
+  \ D(Z;X+Y)=A\cdot D(Z;X)+B\cdot D(Z;Y)+E\cdot D(X;Y)+G\cdot |D(Z;X)-D(Z;Y)|
+ \end{equation}
+ 
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Zu Schritt 5: Berechnung der neuen Distanzwerte}
+
+ \begin{equation*}
+  \ D(Z;X+Y)=A\cdot D(Z;X)+B\cdot D(Z;Y)+E\cdot D(X;Y)+G\cdot |D(Z;X)-D(Z;Y)|
+ \end{equation*}
+
+ mit
+
+ \begin{equation*}
+  \ D(I;J)=\text{Distanz zwischen den Clustern I und J}
+ \end{equation*}
+
+ \begin{itemize}
+  \item A,B,E und G sind Konstanten
+  \item Sie werden vom \textcolor{blue}{agglomerativen Verfahrensalgorithmus} bestimmt
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Agglomerative Verfahrensalgorithmen}
+
+ \begin{enumerate}
+  \item \textcolor{blue}{Single-Linkage-Verfahren:} \textcolor{red}{$A=0.5$ ; $B=0.5$ ; $E=0$ ; $G=-0.5$}   %nächstgelegener Nachbar -> min {D(Z;X);D(Z;Y)}
+
+  \begin{equation}
+   \ D(Z;X+Y)=0.5\cdot (D(Z;X)+D(Z;Y)-|D(Z;X)-D(Z;Y)|)
+  \end{equation}
+
+  \item \textcolor{blue}{Complete-Linkage-Verfahren:} \textcolor{red}{$A=0.5$ ; $B=0.5$ ; $E=0$ ; $G=0.5$}  %entferntester Nachbar -> max  {D(Z;X);D(Z;Y)}
+
+  \begin{equation}
+   \ D(Z;X+Y)=0.5\cdot (D(Z;X)+D(Z;Y)+|D(Z;X)-D(Z;Y)|)
+  \end{equation}
+
+  \item \textcolor{blue}{Average-Linkage-Verfahren:} \textcolor{red}{$A=0.5$ ; $B=0.5$ ; $E=0$ ; $G=0$} 
+
+  \begin{equation}
+   \ D(Z;X+Y)=0.5\cdot (D(Z;X)+D(Z;Y))
+  \end{equation}
+
+ \end{enumerate}
+
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Dendrogramm}
+
+ \centerline{{\includegraphics[height=6cm]{hl_dendrogram.png}}}
+ \centerline{Abbildung 1}
+
+\end{frame}
+
+
+
+
+
+
+
+
+\section{Analyse und Interpretation}
+
+\subsection{Spezielle Probleme}
+
+\begin{frame}
+ \centerline{Spezielle Probleme}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Probleme der praktischen Durchführung}
+
+ \begin{enumerate}
+  \item \textcolor{blue}{Große Anzahl an Untersuchungsobjekten} erschweren die Durchführung einer hierarchischen Clusteranalyse
+  \item \textcolor{blue}{Große Anzahl an Merkmalsvariablen} erschwert die Interpretation der Ergebnisse
+  \item Bei Datenauswertungen \textcolor{blue}{fehlen} häufig Daten oder sind \textcolor{blue}{ungültig}
+ \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Handhabbarkeit vs. Homogenitätsanforderung}
+
+ \begin{itemize}
+  \item Nach dem agglomerativen Verfahren muss die\textcolor{blue}{\glqq beste\grqq Anzahl von Clustern} bestimmt werden
+  \item Einerseits Erfüllung der \textcolor{blue}{Homogenitätsanforderung}
+  \item Andererseits Maximierung der \textcolor{blue}{Handhabbarkeit}
+  \item Beide Anforderungen \textcolor{blue}{gleichzeitig} zu erfüllen fällt schwer \\
+  $\Rightarrow$ \textcolor{blue}{Elbow-Kriterium}
+ \end{itemize}
+
+\end{frame}
+
+\subsection{Bestimmung der Clusteranzahl}
+
+\begin{frame}
+ \centerline{Bestimmung der Clusteranzahl}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Elbow-Kriterium}
+   
+ Optische Identifikation eines \glqq Sprungs" (\textcolor{blue}{Elbow}) im Dendrogramm oder im \textcolor{blue}{Scree-Plot}:
+ \centerline{{\includegraphics[height=6cm]{scree.png}}}
+ \centerline{Abbildung 2}
+\end{frame}
+
+\section*{}
+
+\begin{frame}
+ \frametitle{Quellen}
+ \begin{enumerate}
+  \item Detlef Steinhausen:\glqq Clusteranalyse, Einführung in Methoden und Verfahren der automatischen Klassifikation", 1977
+  \item Joachim Hartung:\glqq Multivariate Statistik: Lehr- und Handbuch der angewandten Statistik", 1995
+  \item Klaus Backhaus:\glqq Multivariate Analysemethoden: eine anwendungsorientierte Einführung", 2016
+  \item Chris Fraley:\glqq How Many Clusters? Which Clustering Method? Answers Via Model-Based Cluster Analysis", 1998
+  \item Michael Wiedenbeck: \glqq Klassifikation mit Clusteranalyse : grundlegende Techniken hierarchischer und K-means-Verfahren", 2001
+ \end{enumerate}
+ Abbildungen:
+ \begin{enumerate}
+  \item Abbildung 1: $http://www.statistics4u.info/fundstat_eng/img/hl_dendrogram.png$
+  \item Abbildung 2: $\text{https://kamihoeferl.wordpress.com/2014/05/01/clusteranalyse-mit-r-echts/}$
+ \end{enumerate}
+\end{frame}
+
+\begin{frame}
+ \centerline{Vielen Dank für Ihre Aufmerksamkeit!}
+\end{frame}
+
+
+\end{document}
+
